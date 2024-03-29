@@ -1,0 +1,21 @@
+{
+    "name": "ib/ib-wallet",
+    "description": "Complete library for all types payment getaway for nepal",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ib\\IbWallet\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kingindraib",
+            "email": "basnetindra342@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0.0"
+    }
+}
