@@ -1,6 +1,7 @@
 {
     "name": "ib/ib-wallet",
     "description": "Complete library for all types payment getaway for nepal",
+    "homepage": "https://github.com/kingindraib/ib-wallet",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -10,12 +11,20 @@
     },
     "authors": [
         {
-            "name": "kingindraib",
-            "email": "basnetindra342@gmail.com"
+            "name": "Indra Basnet",
+            "email": "basnetindra342@gmail.com",
+            "homepage": "https://indrabasnet.com.np/"
         }
     ],
     "minimum-stability": "dev",
     "require": {
         "php": ">=8.0.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ib\\IbWallet\\IbWalletServiceProvider"
+            ]   
+        }
     }
 }
