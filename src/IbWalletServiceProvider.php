@@ -3,6 +3,8 @@
 namespace Ib\IbWallet;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
+use Ib\IbWallet\IbWallet;
 class IbWalletServiceProvider extends ServiceProvider
 {
     /**
@@ -13,6 +15,8 @@ class IbWalletServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        dd(true);
+        // php artisan vendor:publish --provider="Ib\IbWallet\IbWalletServiceProvider"
     }
 
     /**
@@ -25,5 +29,6 @@ class IbWalletServiceProvider extends ServiceProvider
         // $this->app->bind('ib-wallet', function () {
         //     return new IbWallet;
         // });
+        AliasLoader::getInstance()->alias('IbWallet', IbWallet::class);
     }
 }

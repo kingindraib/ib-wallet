@@ -12,26 +12,32 @@ class Khalti extends Ibwallet{
     private $callback;
 
     public function __construct($secret_key,$mode,$callback){
+        // parent::__construct();
         $this->secret_key = config('khalti.secret_key');
         $this->url = config('khalti.default_url');
         $this->mode = config('khalti.mode');
         $this->callback = config('khalti.callback_url');
     }
 
-    public function Checkout($amount, $phone, $email, $product_info, $order_id){
+    public function Checkout(array $data){
         $payload = [
-            'amount' => $amount,
-            'phone' => $phone,
-            'email' => $email,
-            'product_info' => $product_info,
-            'order_id' => $order_id,
-            'secret_key' => $this->secret_key,
             'return_url' => $this->callback,
-            'webhook' => $this->callback,
-            'allow_repeated_payments' => false
+            'website_url' => $this->callback,
+            'amount' => $data['amount'],
+            'purchase_order_id' => $data['purchase_order_id'],
+            'purchase_order_name' => $data['purchase_order_name'],
+            'customer_info' => [
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+            ],
+        ];
+        $header = [
+            'Authorization' => 'Key '.$this->secret_key,
+            'Content-Type' => 'application/json',
         ];
         if($this->mode == 0){
-            $response = Http::post($this->url[0].'/epayment/initiate/', $payload);
+            $response = Http::withHeaders($header)->post($this->url[0].'/epayment/initiate/', $payload);
         }else{
             $response = Http::post($this->url[1].'/epayment/initiate/', $payload);
         }
@@ -42,5 +48,33 @@ class Khalti extends Ibwallet{
             throw new \Exception('Khalti Checkout Failed');
             // throw new KhaltiException('Khalti Checkout Failed');
         }
+    }
+
+    public static function verify($token){
+        $response = Http::post(config('ibwallet.url').'/api/verify',[
+            'token'=>$token
+        ]);
+        return $response->json();
+    }
+
+    public static function verifyPayment($token){
+        $response = Http::post(config('ibwallet.url').'/api/verifyPayment',[
+            'token'=>$token
+        ]);
+        return $response->json();
+    }
+
+    public static function verifyPaymentStatus($token){
+        $response = Http::post(config('ibwallet.url').'/api/verifyPaymentStatus',[
+            'token'=>$token
+        ]);
+        return $response->json();
+    }
+
+    public static function verifyPaymentStatusByRefId($ref_id){
+        $response = Http::post(config('ibwallet.url').'/api/verifyPaymentStatusByRefId',[
+            'ref_id'=>$ref_id
+        ]);
+        return $response->json();
     }
 }
