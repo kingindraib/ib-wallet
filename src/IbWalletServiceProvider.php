@@ -15,8 +15,7 @@ class IbWalletServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        dd(true);
-        // php artisan vendor:publish --provider="Ib\IbWallet\IbWalletServiceProvider"
+       
     }
 
     /**
