@@ -10,19 +10,23 @@ class Khalti extends Ibwallet{
     private $mode;
     private $url;
     private $callback;
+    private $app_url;
 
-    public function __construct($secret_key,$mode,$callback){
+    protected $success_response;
+
+    public function __construct($secret_key='',$mode='',$callback=''){
         // parent::__construct();
-        $this->secret_key = config('khalti.secret_key');
-        $this->url = config('khalti.default_url');
-        $this->mode = config('khalti.mode');
-        $this->callback = config('khalti.callback_url');
+        $this->secret_key = config('ibwallet.khalti.secret_key');
+        $this->url = config('ibwallet.khalti.default_url');
+        $this->mode = config('ibwallet.khalti.mode');
+        $this->callback = config('ibwallet.khalti.callback_url');
+        $this->app_url = config('ibwallet.khalti.app_url');
     }
 
     public function Checkout(array $data){
         $payload = [
             'return_url' => $this->callback,
-            'website_url' => $this->callback,
+            'website_url' => $this->app_url,
             'amount' => $data['amount'],
             'purchase_order_id' => $data['purchase_order_id'],
             'purchase_order_name' => $data['purchase_order_name'],
@@ -36,13 +40,15 @@ class Khalti extends Ibwallet{
             'Authorization' => 'Key '.$this->secret_key,
             'Content-Type' => 'application/json',
         ];
+        
         if($this->mode == 0){
-            $response = Http::withHeaders($header)->post($this->url[0].'/epayment/initiate/', $payload);
+            $response = Http::withHeaders($header)->post($this->url[0].'epayment/initiate/', $payload);
         }else{
-            $response = Http::post($this->url[1].'/epayment/initiate/', $payload);
+            $response = Http::withHeaders($header)->post($this->url[1].'epayment/initiate/', $payload);
         }
         
         if($response->successful()){
+            $this->success_response = $response;
             return $response->json();
         }else{
             throw new \Exception('Khalti Checkout Failed');
@@ -50,31 +56,8 @@ class Khalti extends Ibwallet{
         }
     }
 
-    public static function verify($token){
-        $response = Http::post(config('ibwallet.url').'/api/verify',[
-            'token'=>$token
-        ]);
-        return $response->json();
-    }
 
-    public static function verifyPayment($token){
-        $response = Http::post(config('ibwallet.url').'/api/verifyPayment',[
-            'token'=>$token
-        ]);
-        return $response->json();
-    }
+    public  function pay($data =[]){
 
-    public static function verifyPaymentStatus($token){
-        $response = Http::post(config('ibwallet.url').'/api/verifyPaymentStatus',[
-            'token'=>$token
-        ]);
-        return $response->json();
-    }
-
-    public static function verifyPaymentStatusByRefId($ref_id){
-        $response = Http::post(config('ibwallet.url').'/api/verifyPaymentStatusByRefId',[
-            'ref_id'=>$ref_id
-        ]);
-        return $response->json();
     }
 }

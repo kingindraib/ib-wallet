@@ -28,6 +28,10 @@ class IbWalletServiceProvider extends ServiceProvider
         // $this->app->bind('ib-wallet', function () {
         //     return new IbWallet;
         // });
+        // dd(true);
+        $this->publishes([
+            __DIR__.'/config/config.php' => config_path('ibwallet.php'),
+        ],'config');
         AliasLoader::getInstance()->alias('IbWallet', IbWallet::class);
     }
 }
