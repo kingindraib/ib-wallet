@@ -1,10 +1,10 @@
 {
     "name": "ib/ib-wallet",
-    "description": "Complete package for all types payment getaway for nepal",
+    "description": "Complete package for all types of payment gateways for Nepal",
     "homepage": "https://github.com/kingindraib/ib-wallet",
     "type": "library",
     "license": "MIT",
-    "keywords": ["payment gateway","payment","nepal","getaway","ib-wallet","indrabasnet","laravel","laravel-payment"],
+    "keywords": ["payment gateway", "payment", "nepal", "gateway", "ib-wallet", "indrabasnet", "laravel", "laravel-payment"],
     "autoload": {
         "psr-4": {
             "Ib\\IbWallet\\": "src/"
@@ -20,7 +20,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "ib/ib-wallet": "^1.0.0",
         "php": "^7.2 || ^8.0"
     },
     "extra": {
