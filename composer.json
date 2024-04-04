@@ -17,8 +17,6 @@
             "homepage": "https://indrabasnet.com.np/"
         }
     ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
         "php": "^7.2 || ^8.0"
     },
