@@ -20,7 +20,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "ib/ib-wallet": "1.0.0",
+        "ib/ib-wallet": "^1.0.0",
         "php": ">=8.0.0"
     },
     "extra": {
