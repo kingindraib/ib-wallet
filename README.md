@@ -39,6 +39,8 @@ use IbWallet;
 #### for Khalti
 
 set env file (Here is a sample example)
+* mode 0 for development
+* mode 1 for production
 ```
 KHALTI_CALLBACK_URL=http://127.0.0.1:8000/khalti-callback 
 KHALTI_MODE=0
@@ -81,6 +83,9 @@ if your payment success then you auto redirect in callback url which you already
 
  #### for esewa
  set the env file as seen
+ * mode 0 for development
+ * mode 1 for production
+ this secret key and product code only used on development, for production you need to contact with esewa
  ```
 ESEWA_PRODUCT_CODE=EPAYTEST
 ESEWA_MODE=0
