@@ -6,7 +6,7 @@ This support latest version of any package
 
 # Support Wallet
 - Khalti : working
-- Esewa : coming
+- Esewa : working (prerelese)
 - Parbhu Pay : coming
 - Ime Pay : coming
 - My Pay : coming
@@ -78,6 +78,45 @@ if your payment success then you auto redirect in callback url which you already
     // here you can autometic redirect
     $response = IbWallet::KhaltiResponse();
  ```
+
+ #### for esewa
+ set the env file as seen
+ ```
+ESEWA_PRODUCT_CODE=EPAYTEST
+ESEWA_MODE=0
+ESEWA_FAILURE_URL=http://127.0.0.1:8000/esewa-success
+ESEWA_SUCCESS_URL=http://127.0.0.1:8000/esewa-fail
+ESEWA_SECRET_KEY=8gBm/:&EnhH.1/q
+ ```
+
+ in controller
+ ``` 
+ $paylod =[
+    'amount' => 1000, // in amount 
+    'product_delivery_charge' => 0,
+    'product_service_charge' => 0,
+    'signed_field_names' =>"total_amount,transaction_uuid,product_code", // set signature field name, signature field auto generate
+    'tax_amount' =>0,
+    'total_amount' => 1000,
+    'transaction_uuid' => '1234567', // must be unique
+];
+return IbWallet::Esewa($paylod);
+
+```
+after success and falure payment you will auto redierect success and failure url which is set on .env file
+```
+public function esewa_success(Request $request){
+    // print your response
+    // save your work on database or continue your work
+    dd($request->all());
+}
+
+public function esewa_fail(Request $request){
+    // print your response
+    dd($request->all());
+}
+
+```
 ### Lisence
 MIT
 

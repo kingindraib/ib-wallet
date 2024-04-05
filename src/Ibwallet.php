@@ -2,6 +2,7 @@
 namespace Ib\IbWallet;
 use Illuminate\Support\Facades\Http;
 use Ib\IbWallet\Khalti\Khalti;
+use Ib\IbWallet\Esewa\Esewa;
 abstract class Ibwallet{
 
     public static function khalti($payload = []){
@@ -31,6 +32,16 @@ abstract class Ibwallet{
 
     public static function Khaltiamount($amount){
         return $amount*100;
+    }
+
+    
+    public static function Esewa($payload=[]){
+        if(!empty($payload)){
+            $obj = new Esewa();
+            return $obj->Checkout($payload);
+        }else{
+            throw new \Exception('payload is empty please set data in array in $payload');
+        }
     }
 
 }

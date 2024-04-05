@@ -8,6 +8,9 @@ return [
             0 => 'https://rc-epay.esewa.com.np/api/epay/main/v2/form',
             1 => 'https://epay.esewa.com.np/api/epay/main/v2/form',
         ],
+        'failure_url' => env('ESEWA_FAILURE_URL'),
+        'success_url' => env('ESEWA_SUCCESS_URL'),
+        'secret_key' => env('ESEWA_SECRET_KEY'),
     ],
     'khalti' =>[
         'secret_key' => env('KHALTI_SECRET_KEY'),

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Http;
 // use Ib\IbWallet\Khalti\KhaltiException;
 use Ib\IbWallet\Ibwallet;
 
-class Khalti extends Ibwallet{
+class Khalti{
 
     private $secret_key;
     private $mode;
@@ -40,11 +40,26 @@ class Khalti extends Ibwallet{
             'Authorization' => 'Key '.$this->secret_key,
             'Content-Type' => 'application/json',
         ];
+
+        if(!$this->secret_key){
+            throw new \Exception('Khalti Secret Key Not Found');
+        }
+        if($this->mode == NULL){
+            throw new \Exception('Khalti Mode Not Found');
+        }
+        if(!$this->callback){
+            throw new \Exception('Khalti Callback Not Found');
+        }
+        if(!$this->app_url){
+            throw new \Exception('Khalti App Url Not Found');
+        }
         
         if($this->mode == 0){
             $response = Http::withHeaders($header)->post($this->url[0].'epayment/initiate/', $payload);
-        }else{
+        }elseif($this->mode == 1){
             $response = Http::withHeaders($header)->post($this->url[1].'epayment/initiate/', $payload);
+        }else{
+            throw new \Exception('Khalti Mode Not Found');
         }
         
         if($response->successful()){
