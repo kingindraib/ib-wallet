@@ -3,6 +3,10 @@
 This Laravel Package facilitates creating payments across multiple Nepalese wallets such as Khalti, eSewa, and more, offering versatile payment options in Nepal.
 This support latest version of any package
 
+### How to contribute
+
+If you want to contribute this project. 
+* email: basnetindra342@gmail.com
 
 # Support Wallet
 - Khalti : working
@@ -19,11 +23,6 @@ This support latest version of any package
 composer require ib/ib-wallet
 ```
 
-### How to contribute
-
-If you want to contribute this project. 
-* email: basnetindra342@gmail.com
-
 ### Publish Vendor File
 ```
 php artisan vendor:publish --provider="Ib\IbWallet\IbWalletServiceProvider"
@@ -37,6 +36,7 @@ php artisan vendor:publish
 ```
 use IbWallet;
 ```
+paste in the controller
 #### for Khalti
 
 set env file (Here is a sample example)
@@ -49,9 +49,9 @@ KHALTI_SECRET_KEY=
 
 ```
 for khalti marchent 
-marchent url : https://test-admin.khalti.com/#/join/merchant
-use valid information.
-use otp: 987654  (this only for testing purpose)
+* marchent url : https://test-admin.khalti.com/#/join/merchant
+* use valid information.
+* use otp: 987654  (this only for testing purpose)
 
 ```
  // if you have amount in rs, then you can use IbWallet::Khaltiamount('amount in rs'), this will response in paisa.
@@ -90,7 +90,7 @@ return $checkout;
  set the env file as seen
  * mode 0 for development
  * mode 1 for production
- this secret key and product code only used on development, for production you need to contact with esewa
+ * this secret key and product code only used on development, for production you need to contact with esewa
  ```
 ESEWA_PRODUCT_CODE=EPAYTEST
 ESEWA_MODE=0
@@ -100,7 +100,7 @@ ESEWA_SECRET_KEY=8gBm/:&EnhH.1/q
  ```
 
  in controller
- DO not change the signature field. 
+ * DO not change the signature field. 
  ``` 
   $paylod =[
     'amount' => 1000, // in amount 
