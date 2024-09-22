@@ -6,7 +6,7 @@ This support latest version of any package
 
 # Support Wallet
 - Khalti : working
-- Esewa : working (prerelese)
+- Esewa : working 
 - Parbhu Pay : coming
 - Ime Pay : coming
 - My Pay : coming
@@ -19,9 +19,10 @@ This support latest version of any package
 composer require ib/ib-wallet
 ```
 
-### Add Four Variable in .env
+### How to contribute
 
-This Section will update soon
+If you want to contribute this project. 
+* email: basnetindra342@gmail.com
 
 ### Publish Vendor File
 ```
@@ -53,19 +54,23 @@ use valid information.
 use otp: 987654  (this only for testing purpose)
 
 ```
- $payload = [
-        'amount' => 1000, // in paisa
-        'purchase_order_id' => '123', // most in unique
-        'purchase_order_name'=> 'test', // unique but not mendotary
-        'name'=> 'test bahadur', 
-        'phone'=> '01912345678',
-        'email'=> 'test@gmail.com',
-    ];
-$response = IbWallet::khalti($payload);
-// save response on database
-$checkout = IbWallet::KhaltiCheckout($response);
+ // if you have amount in rs, then you can use IbWallet::Khaltiamount('amount in rs'), this will response in paisa.
+$payload = [
+    'amount' => 1000, // in paisa
+    'purchase_order_id' => '123456710', // most in unique
+    'purchase_order_name'=> 'test prod', // unique but not mendotary
+    'name'=> 'test bahadur', 
+    'phone'=> '01912345678',
+    'email'=> 'test@gmail.com',
+];
+// initate the payment to process the khalti payment
+$initate_payment = IbWallet::khalti($payload);
+// after initate payment. call checkout method to hit the checkout method
+$checkout = IbWallet::KhaltiCheckout($initate_payment);
+// this will redirect to khalti checkout section to fullfill the payment 
 return $checkout;
-if your payment success then you auto redirect in callback url which you already set in env file.
+//if your payment success then you auto redirect in callback url which you already set in env file.
+
 ```
  if you have amount in rs, then you can use IbWallet::Khaltiamount('amount in rs'), this will response in paisa.
 
@@ -89,31 +94,35 @@ if your payment success then you auto redirect in callback url which you already
  ```
 ESEWA_PRODUCT_CODE=EPAYTEST
 ESEWA_MODE=0
-ESEWA_FAILURE_URL=http://127.0.0.1:8000/esewa-success
-ESEWA_SUCCESS_URL=http://127.0.0.1:8000/esewa-fail
+ESEWA_FAILURE_URL=http://127.0.0.1:8000/esewa-fail
+ESEWA_SUCCESS_URL=http://127.0.0.1:8000/esewa-success
 ESEWA_SECRET_KEY=8gBm/:&EnhH.1/q
  ```
 
  in controller
+ DO not change the signature field. 
  ``` 
- $paylod =[
+  $paylod =[
     'amount' => 1000, // in amount 
     'product_delivery_charge' => 0,
     'product_service_charge' => 0,
     'signed_field_names' =>"total_amount,transaction_uuid,product_code", // set signature field name, signature field auto generate
     'tax_amount' =>0,
     'total_amount' => 1000,
-    'transaction_uuid' => '1234567', // must be unique
+    'transaction_uuid' => Str::random(20), // this create the unique transaction_uuid
 ];
 return IbWallet::Esewa($paylod);
 
 ```
-after success and falure payment you will auto redierect success and failure url which is set on .env file
+after success and falure payment you will auto redierect success and failure url which is set on .env file. Define the method like this
 ```
 public function esewa_success(Request $request){
     // print your response
     // save your work on database or continue your work
-    dd($request->all());
+    //dd($request->all());
+     $response = IbWallet::EsewaResponse($request->all());
+        // dd($response);
+       print_r($response);
 }
 
 public function esewa_fail(Request $request){

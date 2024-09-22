@@ -44,5 +44,16 @@ abstract class Ibwallet{
         }
     }
 
+    public static function EsewaResponse($response){
+        $data =[];
+        foreach ($response as $encodedString) {
+            $decodedString = base64_decode($encodedString);
+            $data = json_decode($decodedString, true);     
+        }
+
+        return $data;
+
+    }
+
 }
 
