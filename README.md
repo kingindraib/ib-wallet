@@ -102,15 +102,17 @@ ESEWA_SECRET_KEY=8gBm/:&EnhH.1/q
  in controller
  * DO not change the signature field. 
  ``` 
-  $paylod =[
-    'amount' => 1000, // in amount 
-    'product_delivery_charge' => 0,
-    'product_service_charge' => 0,
-    'signed_field_names' =>"total_amount,transaction_uuid,product_code", // set signature field name, signature field auto generate
-    'tax_amount' =>0,
-    'total_amount' => 1000,
-    'transaction_uuid' => Str::random(20), // this create the unique transaction_uuid
-];
+ $paylod =[
+        'amount' => 1000, // in amount 
+        'product_delivery_charge' => 0,
+        'product_service_charge' => 0,
+        'signed_field_names' =>"total_amount,transaction_uuid,product_code", // set signature field name, signature field auto generate
+        'tax_amount' =>0,
+        'total_amount' => 1000,
+        // 'failure_url' =>"http://127.0.0.1:8000/esewa-fail" , // optional if you want to redirect to other page
+        // 'success_url' =>"http://127.0.0.1:8000/esewa-success", // optional if you want to redirect to other page
+        'transaction_uuid' => Str::random(20), // must be unique
+    ];
 return IbWallet::Esewa($paylod);
 
 ```

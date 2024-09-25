@@ -28,6 +28,13 @@ class Esewa
     public function Checkout($payload)
     {
         // dd(config('ibwallet.esewa.mode'));
+        if(isset($payload['failure_url'])){
+            $this->failure_url = $payload['failure_url'];
+        }
+        if(isset($payload['success_url'])){
+            $this->success_url = $payload['success_url'];
+        }
+ 
         if ($this->mode == NULL) {
             throw new \Exception('Esewa Mode Not Found');
         }
@@ -53,6 +60,7 @@ class Esewa
    
         $signature = hash_hmac('sha256', $sig_message, $this->secret_key, true);
         $sig = base64_encode($signature);
+       
         $addon_payload = [
             'signature' => $sig,
             'failure_url' => $this->failure_url,
