@@ -24,6 +24,23 @@ class Khalti{
     }
 
     public function Checkout(array $data){
+        if(isset($payload['callback_url'])){
+            $this->callback = $data['callback_url'];
+        }
+
+        if(!$this->secret_key){
+            throw new \Exception('Khalti Secret Key Not Found');
+        }
+        if($this->mode == NULL){
+            throw new \Exception('Khalti Mode Not Found');
+        }
+        if(!$this->callback){
+            throw new \Exception('Khalti Callback Not Found');
+        }
+        if(!$this->app_url){
+            throw new \Exception('Khalti App Url Not Found');
+        }
+
         $payload = [
             'return_url' => $this->callback,
             'website_url' => $this->app_url,
@@ -40,19 +57,6 @@ class Khalti{
             'Authorization' => 'Key '.$this->secret_key,
             'Content-Type' => 'application/json',
         ];
-
-        if(!$this->secret_key){
-            throw new \Exception('Khalti Secret Key Not Found');
-        }
-        if($this->mode == NULL){
-            throw new \Exception('Khalti Mode Not Found');
-        }
-        if(!$this->callback){
-            throw new \Exception('Khalti Callback Not Found');
-        }
-        if(!$this->app_url){
-            throw new \Exception('Khalti App Url Not Found');
-        }
         
         if($this->mode == 0){
             $response = Http::withHeaders($header)->post($this->url[0].'epayment/initiate/', $payload);

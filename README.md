@@ -56,12 +56,13 @@ for khalti marchent
 ```
  // if you have amount in rs, then you can use IbWallet::Khaltiamount('amount in rs'), this will response in paisa.
 $payload = [
-    'amount' => 1000, // in paisa
-    'purchase_order_id' => '123456710', // most in unique
-    'purchase_order_name'=> 'test prod', // unique but not mendotary
-    'name'=> 'test bahadur', 
-    'phone'=> '01912345678',
-    'email'=> 'test@gmail.com',
+'amount' => 1000, // in paisa
+'purchase_order_id' => '123456710', // most in unique
+'purchase_order_name'=> 'test prod', // unique but not mendotary
+'name'=> 'test bahadur', 
+'phone'=> '01912345678',
+'email'=> 'test@gmail.com',
+'callback_url' => "http://127.0.0.1:8000/khalti-callback" // optional if you wnat to redirect custom url
 ];
 // initate the payment to process the khalti payment
 $initate_payment = IbWallet::khalti($payload);
