@@ -1,6 +1,6 @@
 {
     "name": "ib/ib-wallet",
-    "version": "1.4.0",
+    "version": "2.0",
     "description": "Complete package for all types of payment gateways for Nepal",
     "homepage": "https://github.com/kingindraib/ib-wallet",
     "type": "library",

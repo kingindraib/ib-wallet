@@ -21,7 +21,7 @@ class Khalti{
         $this->mode = config('ibwallet.khalti.mode');
         $this->callback = config('ibwallet.khalti.callback_url');
         $this->app_url = config('ibwallet.khalti.app_url');
-    }
+    }     
 
     public function Checkout(array $data){
         if(isset($payload['callback_url'])){
