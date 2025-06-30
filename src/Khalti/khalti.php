@@ -24,7 +24,7 @@ class Khalti{
     }     
 
     public function Checkout(array $data){
-        if(isset($payload['callback_url'])){
+        if(isset($data['callback_url'])){
             $this->callback = $data['callback_url'];
         }
 

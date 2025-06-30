@@ -35,6 +35,8 @@ php artisan vendor:publish
 
 ```
 use IbWallet;
+or
+use Ib\IbWallet\IbWallet;
 ```
 paste in the controller
 #### for Khalti
